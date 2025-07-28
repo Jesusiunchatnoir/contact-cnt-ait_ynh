@@ -1,6 +1,6 @@
 import { Contact } from '../types';
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = '/contacts/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');

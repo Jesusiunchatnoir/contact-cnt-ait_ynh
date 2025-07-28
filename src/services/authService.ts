@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = '/contacts/api';
 
 export const authService = {
   async login(username: string, password: string) {
