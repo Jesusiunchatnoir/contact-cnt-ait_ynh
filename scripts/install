@@ -51,8 +51,8 @@ ynh_system_user_create --username=$app --home_dir="$install_dir"
 
 ynh_script_progression --message="Setting up source files..." --weight=1
 
-# Download and extract source code
-ynh_setup_source --dest_dir="$install_dir"
+# Copy application files from current directory
+cp -r src server package.json package-lock.json index.html vite.config.ts tailwind.config.js postcss.config.js eslint.config.js tsconfig*.json "$install_dir/" 2>/dev/null || true
 
 chmod 750 "$install_dir"
 chown -R $app:www-data "$install_dir"
