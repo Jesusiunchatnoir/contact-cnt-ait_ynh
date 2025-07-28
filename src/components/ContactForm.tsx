@@ -47,21 +47,21 @@ const ContactForm: React.FC<ContactFormProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md border-2 border-red-600">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-black">
+    <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-2 sm:p-4 z-50">
+      <div className="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md border-2 border-red-600 max-h-[95vh] overflow-y-auto">
+        <div className="flex items-center justify-between mb-4 sm:mb-6">
+          <h2 className="text-lg sm:text-xl font-bold text-black">
             {contact ? 'Modifier le contact' : 'Nouveau contact'}
           </h2>
           <button
             onClick={onCancel}
-            className="text-red-600 hover:text-black transition-colors"
+            className="text-red-600 hover:text-black transition-colors p-1 touch-manipulation"
           >
             <X className="h-6 w-6" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
           <div>
             <label className="block text-sm font-bold text-black mb-2">
               Prénom *
@@ -74,7 +74,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 value={formData.firstName}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full pl-10 pr-4 py-3 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
                 placeholder="Prénom"
               />
             </div>
@@ -92,7 +92,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 value={formData.lastName}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full pl-10 pr-4 py-3 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
                 placeholder="Nom"
               />
             </div>
@@ -109,7 +109,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full pl-10 pr-4 py-3 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
                 placeholder="06 12 34 56 78"
               />
             </div>
@@ -126,7 +126,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full pl-10 pr-4 py-2 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full pl-10 pr-4 py-3 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base"
                 placeholder="email@exemple.com"
               />
             </div>
@@ -143,23 +143,23 @@ const ContactForm: React.FC<ContactFormProps> = ({
                 value={formData.note}
                 onChange={handleChange}
                 rows={3}
-                className="w-full pl-10 pr-4 py-2 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                className="w-full pl-10 pr-4 py-3 bg-white border-2 border-red-600 rounded-lg text-black placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-base resize-none"
                 placeholder="Note personnelle..."
               />
             </div>
           </div>
 
-          <div className="flex space-x-3 pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 pt-4">
             <button
               type="button"
               onClick={onCancel}
-              className="flex-1 py-2 px-4 bg-black text-white border-2 border-white rounded-lg hover:bg-gray-900 transition-colors font-medium"
+              className="flex-1 py-3 px-4 bg-black text-white border-2 border-white rounded-lg hover:bg-gray-900 transition-colors font-medium touch-manipulation"
             >
               Annuler
             </button>
             <button
               type="submit"
-              className="flex-1 py-2 px-4 bg-red-600 text-white border-2 border-white rounded-lg hover:bg-red-700 transition-colors font-bold"
+              className="flex-1 py-3 px-4 bg-red-600 text-white border-2 border-white rounded-lg hover:bg-red-700 transition-colors font-bold touch-manipulation"
             >
               {contact ? 'Modifier' : 'Ajouter'}
             </button>
