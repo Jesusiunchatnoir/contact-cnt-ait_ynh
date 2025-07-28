@@ -51,10 +51,10 @@ ynh_system_user_create --username=$app --home_dir="$install_dir"
 
 ynh_script_progression --message="Setting up source files..." --weight=1
 
-# Copy application files from current directory
-cp -r src server "$install_dir/" 2>/dev/null || true
-cp package.json package-lock.json index.html vite.config.ts tailwind.config.js postcss.config.js eslint.config.js "$install_dir/" 2>/dev/null || true
-cp tsconfig.json tsconfig.app.json tsconfig.node.json "$install_dir/" 2>/dev/null || true
+# Copy application files from app directory
+cp -r ../src ../server "$install_dir/" 2>/dev/null || true
+cp ../package.json ../package-lock.json ../index.html ../vite.config.ts ../tailwind.config.js ../postcss.config.js ../eslint.config.js "$install_dir/" 2>/dev/null || true
+cp ../tsconfig.json ../tsconfig.app.json ../tsconfig.node.json "$install_dir/" 2>/dev/null || true
 
 chmod 750 "$install_dir"
 chown -R $app:www-data "$install_dir"
@@ -150,5 +150,4 @@ ynh_systemd_action --service_name=nginx --action=reload
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Installation of $app completed" --weight=1git remote add origin https://github.com/Jesusiunchatnoir/contact-cnt-ait_ynh.git
-git push origin main
+ynh_script_progression --message="Installation of $app completed" --weight=1
