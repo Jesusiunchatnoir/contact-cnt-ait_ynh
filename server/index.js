@@ -16,6 +16,9 @@ const DATA_DIR = process.env.DATA_DIR || './data';
 app.use(cors());
 app.use(express.json());
 
+// Servir les fichiers statiques buildés
+app.use(express.static(path.join(__dirname, '../dist')));
+
 // Créer le répertoire de données s'il n'existe pas
 const fs = require('fs');
 if (!fs.existsSync(DATA_DIR)) {
@@ -430,6 +433,15 @@ app.post('/api/contacts/import', authenticateToken, (req, res) => {
 setInterval(() => {
   db.run('DELETE FROM shares WHERE expires_at < ?', [new Date().toISOString()]);
 }, 60 * 60 * 1000); // Toutes les heures
+
+// Route catch-all pour servir l'application React
+app.get('*', (req, res) => {
+  // Ne pas intercepter les routes API
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'Route API non trouvée' });
+  }
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
