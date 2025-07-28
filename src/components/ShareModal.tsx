@@ -103,24 +103,6 @@ const ShareModal: React.FC<ShareModalProps> = ({ contact, onClose }) => {
             <div className="space-y-4">
               <div className="bg-black rounded-lg p-4 border-2 border-red-600">
                 <div className="flex items-center text-sm text-white mb-2">
-                  <Clock className="h-4 w-4 mr-2" />
-                  Expire le {formatExpiryDate(shareData.expiresAt)}
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="flex-1 bg-white rounded px-3 py-2 text-sm text-black overflow-hidden border border-red-600">
-                    <div className="truncate">{shareData.shareUrl}</div>
-                  </div>
-                  <button
-                    onClick={() => copyToClipboard(shareData.shareUrl)}
-                    className="p-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors border border-white"
-                  >
-                    <Copy className="h-4 w-4" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="bg-black rounded-lg p-4 border-2 border-red-600">
-                <div className="flex items-center text-sm text-white mb-2">
                   <Link className="h-4 w-4 mr-2" />
                   Code de partage
                 </div>
@@ -135,10 +117,14 @@ const ShareModal: React.FC<ShareModalProps> = ({ contact, onClose }) => {
                     <Copy className="h-4 w-4" />
                   </button>
                 </div>
+                <div className="text-white text-sm text-center mt-2">
+                  <Clock className="h-4 w-4 mr-1 inline" />
+                  Expire le {formatExpiryDate(shareData.expiresAt)}
+                </div>
               </div>
 
               <div className="bg-red-600 border-2 border-black text-white px-4 py-3 rounded-lg text-sm font-medium">
-                🚩🏴 Ce lien est temporaire et expire dans 30 minutes. Les données partagées sont chiffrées.
+                🚩🏴 Ce code est temporaire et expire dans 30 minutes. Les données partagées sont chiffrées.
               </div>
             </div>
           )}

@@ -327,15 +327,10 @@ app.post('/api/contacts/:id/share', authenticateToken, (req, res) => {
         return res.status(500).json({ error: 'Erreur lors de la création du partage' });
       }
 
-      const baseUrl = req.get('X-Forwarded-Proto') && req.get('X-Forwarded-Host') 
-        ? `${req.get('X-Forwarded-Proto')}://${req.get('X-Forwarded-Host')}${req.originalUrl.split('/api')[0]}`
-        : `${req.protocol}://${req.get('host')}`;
-      
       res.json({
-        message: 'Lien de partage créé',
+        message: 'Code de partage créé',
         shareCode,
-        expiresAt: expiresAt.toISOString(),
-        shareUrl: `${baseUrl}/share/${shareCode}`
+        expiresAt: expiresAt.toISOString()
       });
     }
   );
