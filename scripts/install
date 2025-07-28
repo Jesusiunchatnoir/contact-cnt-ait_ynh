@@ -83,21 +83,27 @@ ynh_exec_warn_less ynh_install_nodejs --nodejs_version=18
 ynh_script_progression --message="Installing dependencies..." --weight=10
 pushd "$install_dir"
 	ynh_use_nodejs
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH npm install
+	
+	# Install all dependencies including devDependencies for build
+	ynh_exec_as $app env $ynh_node_load_PATH npm install --include=dev
 	
 	# Install server dependencies
 	pushd server
-		ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH npm install
+		ynh_exec_as $app env $ynh_node_load_PATH npm install
 	popd
 	
-	# Build the application
-	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH npm run build
+	# Build the React application
+	ynh_script_progression --message="Building React application..." --weight=5
+	ynh_exec_as $app env $ynh_node_load_PATH npm run build
 	
-	# Vérifier que le build a réussi
-	if [ ! -d "dist" ]; then
-		echo "Erreur: Le build n'a pas créé le dossier dist"
+	# Verify build succeeded
+	if [ ! -d "dist" ] || [ ! -f "dist/index.html" ]; then
+		ynh_print_err "Build failed: dist folder or index.html not found"
+		ls -la
 		exit 1
 	fi
+	
+	ynh_print_info "Build successful: $(ls -la dist/)"
 popd
 
 # Generate JWT secret
