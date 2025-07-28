@@ -48,6 +48,9 @@ ynh_exec_warn_less ynh_install_nodejs --nodejs_version=18
 #=================================================
 
 ynh_script_progression --message="Upgrading NGINX web server configuration..." --weight=1
+
+# Force la mise à jour de la configuration nginx pour corriger le partage
+ynh_backup_if_checksum_is_different --file="/etc/nginx/conf.d/$domain.d/$app.conf" --checksum_setting_name=checksum_nginx_conf
 ynh_add_nginx_config
 
 #=================================================
