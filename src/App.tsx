@@ -151,7 +151,7 @@ function MainApp() {
         <div className="max-w-md mx-auto pt-8 px-4">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-red-600 mb-2">
-              🏴 Contacts CNT-AIT
+              🚩🏴 Contacts CNT-AIT
             </h1>
           </div>
           

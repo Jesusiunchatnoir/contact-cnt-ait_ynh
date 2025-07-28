@@ -32,7 +32,7 @@ const ShareCodeInput: React.FC<ShareCodeInputProps> = ({ onContactFound }) => {
   return (
     <div className="bg-red-600 rounded-lg p-6 border-2 border-white mb-6">
       <h2 className="text-xl font-bold text-white mb-4 text-center">
-        🔍 Accéder avec un code de partage
+        🚩🏴 Accéder avec un code de partage
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-4">

@@ -71,7 +71,7 @@ const SharedContact: React.FC = () => {
       <div className="max-w-md mx-auto pt-8">
         <div className="bg-red-600 rounded-lg p-6 border-2 border-white mb-4">
           <h1 className="text-2xl font-bold text-white mb-4 text-center">
-            🏴 Contact Partagé CNT-AIT
+            🚩🏴 Contact Partagé CNT-AIT
           </h1>
           
           <div className="bg-white rounded-lg p-4 border-2 border-black">

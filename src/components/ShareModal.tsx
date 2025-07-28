@@ -138,7 +138,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ contact, onClose }) => {
               </div>
 
               <div className="bg-red-600 border-2 border-black text-white px-4 py-3 rounded-lg text-sm font-medium">
-                🏴 Ce lien est temporaire et expire dans 30 minutes. Les données partagées sont chiffrées.
+                🚩🏴 Ce lien est temporaire et expire dans 30 minutes. Les données partagées sont chiffrées.
               </div>
             </div>
           )}
