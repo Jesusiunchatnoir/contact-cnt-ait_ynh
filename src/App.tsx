@@ -6,7 +6,7 @@ import ContactList from './components/ContactList';
 import ContactForm from './components/ContactForm';
 import ShareModal from './components/ShareModal';
 import SharedContact from './components/SharedContact';
-import ShareCodePage from './components/ShareCodePage';
+import ShareCodeInput from './components/ShareCodeInput';
 
 import { Contact, User as UserType } from './types';
 import { authService } from './services/authService';
@@ -21,6 +21,7 @@ function MainApp() {
   const [showShareModal, setShowShareModal] = useState(false);
   const [sharingContact, setSharingContact] = useState<Contact | null>(null);
   const [loading, setLoading] = useState(true);
+  const [sharedContact, setSharedContact] = useState<{contact: Contact, expiresAt: string} | null>(null);
 
 
   useEffect(() => {
@@ -156,14 +157,46 @@ function MainApp() {
             </h1>
           </div>
           
-          <div className="mb-4 sm:mb-6">
-            <a 
-              href="/code"
-              className="w-full flex items-center justify-center py-3 sm:py-4 bg-red-600 text-white border-2 border-white rounded-lg hover:bg-red-700 transition-colors font-bold text-sm sm:text-base touch-manipulation"
-            >
-              🔑 Accéder avec un code de partage
-            </a>
-          </div>
+          <ShareCodeInput 
+            onContactFound={(contact, expiresAt) => setSharedContact({contact, expiresAt})}
+          />
+          
+          {sharedContact ? (
+            <div className="bg-red-600 rounded-lg p-4 sm:p-6 border-2 border-white mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl font-bold text-white mb-4 text-center">
+                Contact Partagé
+              </h2>
+              
+              <div className="bg-white rounded-lg p-4 border-2 border-black">
+                <h3 className="text-lg sm:text-xl font-bold text-black mb-3">
+                  {sharedContact.contact.firstName} {sharedContact.contact.lastName}
+                </h3>
+                
+                <div className="space-y-2 text-black text-sm sm:text-base">
+                  {sharedContact.contact.phone && (
+                    <div>📞 {sharedContact.contact.phone}</div>
+                  )}
+                  {sharedContact.contact.email && (
+                    <div>📧 {sharedContact.contact.email}</div>
+                  )}
+                  {sharedContact.contact.note && (
+                    <div>📝 {sharedContact.contact.note}</div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="text-white text-sm text-center mt-4">
+                ⏰ Expire le {new Date(sharedContact.expiresAt).toLocaleString('fr-FR')}
+              </div>
+              
+              <button
+                onClick={() => setSharedContact(null)}
+                className="w-full mt-4 py-3 bg-black text-white border-2 border-white rounded-lg hover:bg-gray-900 transition-colors font-medium touch-manipulation"
+              >
+                Fermer
+              </button>
+            </div>
+          ) : null}
           
           <AuthForm onLogin={handleLogin} />
         </div>
@@ -291,7 +324,7 @@ function App() {
       <Routes>
         <Route path="/share/:shareCode" element={<SharedContact />} />
         <Route path="/code/:shareCode" element={<SharedContact />} />
-        <Route path="/code" element={<ShareCodePage />} />
+
         <Route path="/*" element={<MainApp />} />
       </Routes>
     </Router>

@@ -30,25 +30,25 @@ const ShareCodeInput: React.FC<ShareCodeInputProps> = ({ onContactFound }) => {
   };
 
   return (
-    <div className="bg-red-600 rounded-lg p-6 border-2 border-white mb-6">
-      <h2 className="text-xl font-bold text-white mb-4 text-center">
+    <div className="bg-red-600 rounded-lg p-4 sm:p-6 border-2 border-white mb-4 sm:mb-6">
+      <h2 className="text-lg sm:text-xl font-bold text-white mb-4 text-center">
         🚩🏴 Accéder avec un code de partage
       </h2>
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
         <div>
           <input
             type="text"
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder="Entrez le code de partage..."
-            className="w-full px-4 py-3 rounded-lg border-2 border-black text-black font-mono text-center"
+            className="w-full px-4 py-3 sm:py-4 rounded-lg border-2 border-black text-black font-mono text-center text-sm sm:text-base"
             disabled={loading}
           />
         </div>
         
         {error && (
-          <div className="bg-black text-white p-3 rounded-lg border border-white text-center">
+          <div className="bg-black text-white p-3 rounded-lg border border-white text-center text-sm sm:text-base">
             {error}
           </div>
         )}
@@ -56,7 +56,7 @@ const ShareCodeInput: React.FC<ShareCodeInputProps> = ({ onContactFound }) => {
         <button
           type="submit"
           disabled={loading || !code.trim()}
-          className="w-full flex items-center justify-center py-3 bg-black text-white border-2 border-white rounded-lg hover:bg-gray-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-bold"
+          className="w-full flex items-center justify-center py-3 sm:py-4 bg-black text-white border-2 border-white rounded-lg hover:bg-gray-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-bold text-sm sm:text-base touch-manipulation"
         >
           {loading ? (
             'Recherche...'
