@@ -80,7 +80,7 @@ export const contactService = {
   },
 
   async getSharedContact(shareCode: string) {
-    const response = await fetch(`${API_BASE_URL}/share/${shareCode}`);
+    const response = await fetch(`/contacts/api/share/${shareCode}`);
 
     if (!response.ok) {
       const error = await response.json();
