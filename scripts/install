@@ -92,6 +92,12 @@ pushd "$install_dir"
 	
 	# Build the application
 	ynh_exec_warn_less ynh_exec_as $app env $ynh_node_load_PATH npm run build
+	
+	# Vérifier que le build a réussi
+	if [ ! -d "dist" ]; then
+		echo "Erreur: Le build n'a pas créé le dossier dist"
+		exit 1
+	fi
 popd
 
 # Generate JWT secret
