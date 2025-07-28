@@ -16,22 +16,38 @@ const DATA_DIR = process.env.DATA_DIR || './data';
 app.use(cors());
 app.use(express.json());
 
-// Servir les fichiers statiques buildés
-const distPath = path.join(__dirname, '../dist');
-console.log('Serving static files from:', distPath);
-app.use(express.static(distPath));
+// Log des requêtes pour debug
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path}`);
+  next();
+});
+
+// Route de test API
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API fonctionne correctement', timestamp: new Date().toISOString() });
+});
 
 // Créer le répertoire de données s'il n'existe pas
 const fs = require('fs');
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
+  console.log('Répertoire de données créé:', DATA_DIR);
 }
 
 // Base de données SQLite
-const db = new sqlite3.Database(path.join(DATA_DIR, 'contacts.db'));
+const dbPath = path.join(DATA_DIR, 'contacts.db');
+console.log('Chemin de la base de données:', dbPath);
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('Erreur lors de l\'ouverture de la base de données:', err);
+  } else {
+    console.log('Base de données SQLite connectée avec succès');
+  }
+});
 
 // Initialisation des tables
 db.serialize(() => {
+  console.log('Initialisation des tables de la base de données...');
   // Table des utilisateurs
   db.run(`CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -59,7 +75,13 @@ db.serialize(() => {
     expires_at DATETIME NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (contact_id) REFERENCES contacts (id)
-  )`);
+  )`, (err) => {
+    if (err) {
+      console.error('Erreur lors de la création de la table shares:', err);
+    } else {
+      console.log('Tables de la base de données initialisées avec succès');
+    }
+  });
 });
 
 // Middleware d'authentification
@@ -436,12 +458,13 @@ setInterval(() => {
   db.run('DELETE FROM shares WHERE expires_at < ?', [new Date().toISOString()]);
 }, 60 * 60 * 1000); // Toutes les heures
 
+// Servir les fichiers statiques buildés APRES les routes API
+const distPath = path.join(__dirname, '../dist');
+console.log('Serving static files from:', distPath);
+app.use(express.static(distPath));
+
 // Route catch-all pour servir l'application React
 app.get('*', (req, res) => {
-  // Ne pas intercepter les routes API
-  if (req.path.startsWith('/api/')) {
-    return res.status(404).json({ error: 'Route API non trouvée' });
-  }
   const indexPath = path.join(__dirname, '../dist/index.html');
   console.log('Serving index.html from:', indexPath);
   res.sendFile(indexPath);
