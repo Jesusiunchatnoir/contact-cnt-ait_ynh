@@ -51,13 +51,8 @@ ynh_system_user_create --username=$app --home_dir="$install_dir"
 
 ynh_script_progression --message="Setting up source files..." --weight=1
 
-# Copy only the application files, not YunoHost packaging files
-ls -la
-cp -r src server "$install_dir/" || echo "Failed to copy src/server"
-cp package.json package-lock.json index.html vite.config.ts tailwind.config.js postcss.config.js eslint.config.js "$install_dir/" || echo "Failed to copy main files"
-cp tsconfig.json tsconfig.app.json tsconfig.node.json "$install_dir/" || echo "Failed to copy tsconfig files"
-echo "Files copied to $install_dir:"
-ls -la "$install_dir/"
+# Download and extract source code
+ynh_setup_source --dest_dir="$install_dir"
 
 chmod 750 "$install_dir"
 chown -R $app:www-data "$install_dir"
