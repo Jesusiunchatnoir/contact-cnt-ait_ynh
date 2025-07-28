@@ -17,7 +17,9 @@ app.use(cors());
 app.use(express.json());
 
 // Servir les fichiers statiques buildés
-app.use(express.static(path.join(__dirname, '../dist')));
+const distPath = path.join(__dirname, '../dist');
+console.log('Serving static files from:', distPath);
+app.use(express.static(distPath));
 
 // Créer le répertoire de données s'il n'existe pas
 const fs = require('fs');
@@ -440,7 +442,9 @@ app.get('*', (req, res) => {
   if (req.path.startsWith('/api/')) {
     return res.status(404).json({ error: 'Route API non trouvée' });
   }
-  res.sendFile(path.join(__dirname, '../dist/index.html'));
+  const indexPath = path.join(__dirname, '../dist/index.html');
+  console.log('Serving index.html from:', indexPath);
+  res.sendFile(indexPath);
 });
 
 app.listen(PORT, () => {
