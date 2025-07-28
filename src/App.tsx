@@ -214,7 +214,7 @@ function MainApp() {
                 alt="CNT-AIT Logo" 
                 className="h-10 w-auto mr-3"
               />
-              <h1 className="text-xl font-bold text-white">Contacts Sécurisés</h1>
+              <h1 className="text-xl font-bold text-white">Réseau Libre</h1>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-white font-medium">Bienvenue, {user.username}</span>
