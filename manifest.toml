@@ -39,10 +39,6 @@ ram.runtime = "50M"
     type = "password"
 
 [resources]
-    [resources.sources]
-        [resources.sources.main]
-        url = "https://github.com/Jesusiunchatnoir/contact-cnt-ait/archive/main.tar.gz"
-        sha256 = "0000000000000000000000000000000000000000000000000000000000000000"
 
     [resources.system_user]
 
