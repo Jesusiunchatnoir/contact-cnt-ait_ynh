@@ -5,7 +5,7 @@ name = "Contacts Libres CNT-AIT"
 description.en = "Decentralized contact management application for CNT-AIT"
 description.fr = "Application décentralisée de gestion de contacts pour la CNT-AIT"
 
-version = "1.3~ynh1"
+version = "1.4~ynh1"
 
 maintainers = ["CNT-AIT"]
 

@@ -138,6 +138,16 @@ ynh_script_progression --message="Configuring log rotation..." --weight=1
 ynh_use_logrotate
 
 #=================================================
+# SETUP PERMISSIONS
+#=================================================
+
+ynh_script_progression --message="Configuring permissions..." --weight=1
+
+# Create public permission for share routes
+ynh_permission_create --permission="share" --url="$domain$path_url/share" --allowed="visitors" --show_tile=false --protected=false
+ynh_permission_create --permission="api_share" --url="$domain$path_url/api/share" --allowed="visitors" --show_tile=false --protected=false
+
+#=================================================
 # INTEGRATE SERVICE IN YUNOHOST
 #=================================================
 
